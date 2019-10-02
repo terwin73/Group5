@@ -1,0 +1,61 @@
+# Group5
+WVU BUDA Group 5
+
+Here are some things that I have been working on for question 4. I'm not sure if any of this will help complete question 4, but feel free to use anything that you think can help.
+```{r}
+library(carData)
+data(Salaries)
+head(Salaries)
+table(Salaries)
+pairs(Salaries)
+ftable(x1<-xtabs(~discipline+rank+sex,data=Salaries))
+Salaries[seq(from=1, to=60, by=5),]
+str(Salaries)
+par(mfrow=c(2,2)) 
+plot(Salaries$salary~Salaries$rank)
+plot(Salaries$salary~Salaries$discipline)
+plot(Salaries$salary~Salaries$yrs.since.phd)
+plot(Salaries$salary~Salaries$yrs.service)
+plot(Salaries$salary~Salaries$sex)
+summary(Salaries$salary~Salaries$rank)
+summary(Salaries$salary~Salaries$discipline)
+summary(Salaries$salary~Salaries$yrs.since.phd)
+summary(Salaries$salary~Salaries$yrs.service)
+summary(Salaries$salary~Salaries$sex)
+Mod1=lm(salary~.,data=Salaries)
+summary(Mod1)
+Mod2=lm(salary~rank+discipline+yrs.since.phd+yrs.service,data=Salaries)
+summary(Mod2)
+par(mfrow=c(2,2))
+plot(Mod1)
+par(mfrow=c(2,2))
+plot(Mod2)
+glm.fit = glm(salary ~ ., data=Salaries)
+summary(glm.fit)
+plot(glm.fit)
+Mod3=lm(log(salary)~rank+discipline+yrs.since.phd+yrs.service+log(salary),data=Salaries)
+summary(Mod3)
+par(mfrow=c(2,2))
+plot(Mod3)
+Mod4=lm(sqrt(salary)~rank+discipline+yrs.since.phd+yrs.service+sqrt(salary),data=Salaries)
+summary(Mod4)
+par(mfrow=c(2,2))
+plot(Mod4)
+step(lm(salary ~ ., data = Salaries))
+step(lm(salary~rank+discipline+yrs.since.phd+yrs.service,data=Salaries),direction="backward")
+step(lm(log(salary)~rank+discipline+yrs.since.phd+yrs.service+log(salary),data=Salaries),direction="backward")
+step(lm(sqrt(salary)~rank+discipline+yrs.since.phd+yrs.service+sqrt(salary),data=Salaries),direction="backward")
+help("step")
+397/5
+Salaries$sampid=rep(5,dim(Salaries)[1])
+Salaries$sampid=rep(10,dim(Salaries)[1])
+set.seed(200)
+set=sample(1:dim(Salaries)[1]) 
+Samp=sample(1:dim(Salaries)[1],dim(Salaries),replace=FALSE)
+for(j in 1:4){
+Salaries$sampid[set[((j-1)*79.4+1):(j*79.4)]]=j  
+}
+Sid=rep(5,dim(Salaries)[1])
+Sid=rep(10,dim(Salaries)[1])
+table(Salaries$sampid)
+```
